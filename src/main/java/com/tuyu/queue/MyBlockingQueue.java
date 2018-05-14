@@ -93,12 +93,16 @@ public class MyBlockingQueue<E> implements BlockingQueue<E> {
 
     @Override
     public void put(E o) throws InterruptedException {
+        if (o == null){
+            throw new InterruptedException("parameter is null");
+        }
         int c = -1;
         AtomicInteger count = this.count;
         final ReentrantLock putLock = this.putLock;
         final Condition notFull = this.notFull;
 
-        putLock.lock();
+//        putLock.lock();
+        putLock.lockInterruptibly();
         try {
             while (count.get() == size){
                 notFull.await();
@@ -148,7 +152,7 @@ public class MyBlockingQueue<E> implements BlockingQueue<E> {
         final ReentrantLock takeLock = this.takeLock;
         final Condition notEmpty = this.notEmpty;
         E re = null;
-        takeLock.lock();
+        takeLock.lockInterruptibly();
         try {
             while (count.get() <= 0){
                 notEmpty.await();
