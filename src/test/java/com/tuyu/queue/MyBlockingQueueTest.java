@@ -1,5 +1,7 @@
 package com.tuyu.queue;
 
+import org.junit.Test;
+
 /**
  * <pre>
  * ////////////////////////////////////////////////////////////////////
@@ -26,19 +28,21 @@ package com.tuyu.queue;
  * ////////////////////////////////////////////////////////////////////
  * </pre>
  * tuyu于5/14/18祈祷...
- * 测试
- * <p>生产者向阻塞队列里添加数据，消费者在阻塞队列里消费数据</p>
+ *
  * @author tuyu
  * @date 5/14/18
  * Stay Hungry, Stay Foolish.
  */
-public class Main {
+public class MyBlockingQueueTest {
 
-    private static final MyBlockingQueue<String> queue = new MyBlockingQueue<>(5); // 链表实现的阻塞队列，初始容量是5，不指定这是Integer.MAX_VALUE
-
-    public static void main(String[] args) {
-
-        new Thread(new Producer(queue), "1").start();
-        new Thread(new Consumer(queue), "1").start();
+    @Test
+    public void testPutAndTake() throws InterruptedException{
+        MyBlockingQueue<String> queue = new MyBlockingQueue<>(5); // 链表实现的阻塞队列，初始容量是5，不指定这是Integer.MAX_VALUE
+        Thread producer = new Thread(new Producer(queue), "1");
+        Thread consumer = new Thread(new Consumer(queue), "1");
+        producer.start();
+        consumer.start();
+        producer.join();
+        consumer.join();
     }
 }

@@ -50,7 +50,7 @@ public class Consumer implements Runnable{
     @Override
     public void run() {
         try {
-            Thread.currentThread().sleep(6000L);
+            Thread.currentThread().sleep(6000L); // 睡眠6秒，再消费队列中的数据，添加元素的线程将会被阻塞
             String name = Thread.currentThread().getName();
             int num = 20; // 消费者线程消费num条数据后将会退出，如果队列中没有num条数据，消费者线程将会阻塞
             CountDownLatch latch = new CountDownLatch(num);
