@@ -1,8 +1,9 @@
-package com.tuyu.queue;
+package com.tuyu.annotation;
 
-import org.junit.Test;
-
-import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * <pre>
@@ -29,28 +30,15 @@ import java.io.IOException;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * </pre>
- * tuyu于5/14/18祈祷...
- *
+ * tuyu于5/19/18祈祷...
+ * 自定义注解
+ * <p>方法级别的注解，通过成员名value的值判断目标方法是否需要测试</p>
  * @author tuyu
- * @date 5/14/18
+ * @date 5/19/18
  * Stay Hungry, Stay Foolish.
  */
-public class MyBlockingQueueTest {
-
-    @Test
-    public void testPutAndTake() throws InterruptedException{
-        MyBlockingQueue<String> queue = new MyBlockingQueue<>(5); // 链表实现的阻塞队列，初始容量是5，不指定这是Integer.MAX_VALUE
-        Thread producer = new Thread(new Producer(queue), "1");
-        Thread consumer = new Thread(new Consumer(queue), "1");
-        producer.start();
-        consumer.start();
-        producer.join();
-        consumer.join();
-    }
-
-    @Test
-    public void test() {
-        System.out.println(Character.MAX_VALUE);
-
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface NeedTest {
+    boolean value() default true;
 }

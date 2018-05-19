@@ -1,8 +1,4 @@
-package com.tuyu.queue;
-
-import org.junit.Test;
-
-import java.io.IOException;
+package com.tuyu.annotation;
 
 /**
  * <pre>
@@ -29,28 +25,26 @@ import java.io.IOException;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * </pre>
- * tuyu于5/14/18祈祷...
- *
+ * tuyu于5/19/18祈祷...
+ * service类
+ * <p>使用自定义注解{@link com.tuyu.annotation.NeedTest}</p>
  * @author tuyu
- * @date 5/14/18
+ * @date 5/19/18
  * Stay Hungry, Stay Foolish.
  */
-public class MyBlockingQueueTest {
+public class MyService {
 
-    @Test
-    public void testPutAndTake() throws InterruptedException{
-        MyBlockingQueue<String> queue = new MyBlockingQueue<>(5); // 链表实现的阻塞队列，初始容量是5，不指定这是Integer.MAX_VALUE
-        Thread producer = new Thread(new Producer(queue), "1");
-        Thread consumer = new Thread(new Consumer(queue), "1");
-        producer.start();
-        consumer.start();
-        producer.join();
-        consumer.join();
+    public void saySomething(){
+        System.out.println("say something");
     }
 
-    @Test
-    public void test() {
-        System.out.println(Character.MAX_VALUE);
+    @NeedTest(true) // 成员名value()设置为true
+    public void sayHello(String name){
+        System.out.println("hello "+ name);
+    }
 
+    @NeedTest(false) // 成员名value()设置为false
+    public void sayHi(String name){
+        System.out.println("hi " + name);
     }
 }
