@@ -1,9 +1,6 @@
-package com.tuyu.annotation;
+package com.tuyu.thread;
 
-import com.tuyu.thread.MyThread;
-import org.junit.Test;
-
-import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * <pre>
@@ -30,35 +27,33 @@ import java.lang.reflect.Method;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * </pre>
- * tuyu于5/19/18祈祷...
- * 测试类
- * <p>测试自定义注解{@link com.tuyu.annotation.NeedTest}</p>
+ * tuyu于5/22/18祈祷...
+ *
  * @author tuyu
- * @date 5/19/18
+ * @date 5/22/18
  * Stay Hungry, Stay Foolish.
  */
-public class NeedTestTest {
+public class MyThread implements Runnable {
 
-    /**
-     * 使用Java反射机制来访问自定义注解
-     */
-    @Test
-    public void testCustomAnnotation() {
-        Class clazz = MyService.class;
-        Method[] methods = clazz.getDeclaredMethods();
-        if (methods.length == 0){
-            System.out.println("method " + clazz.getName() + " has no declared method");
-        }else {
-            for (Method method : methods){
-                NeedTest annotation = method.getAnnotation(NeedTest.class); // 所有自定义的注解都隐式继承自java.lang.annotation.Annotation接口，但是不允许显示继承其他接口
-                if (annotation == null){
-                    System.out.println("method" + method.getName() + " has not annotated @NeedTest");
-                }else {
-                    boolean value = annotation.value();
-                    System.out.println(method.getName() + " has annotated @NeedTest and value = " + value);
-                }
-            }
-        }
+    private Date date;
+
+    public MyThread(Date date) {
+        this.date = date;
     }
 
+    @Override
+    public void run() {
+        // 运行10秒钟
+        long now = System.currentTimeMillis();
+        while (System.currentTimeMillis() - now < 2000L){
+            // do nothing
+        }
+        // 睡眠10秒
+        try {
+            Thread.currentThread().sleep(10000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

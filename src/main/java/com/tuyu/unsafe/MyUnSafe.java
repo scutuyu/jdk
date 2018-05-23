@@ -1,9 +1,8 @@
-package com.tuyu.annotation;
+package com.tuyu.unsafe;
 
-import com.tuyu.thread.MyThread;
-import org.junit.Test;
+import sun.misc.Unsafe;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
 /**
  * <pre>
@@ -30,35 +29,27 @@ import java.lang.reflect.Method;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * </pre>
- * tuyu于5/19/18祈祷...
- * 测试类
- * <p>测试自定义注解{@link com.tuyu.annotation.NeedTest}</p>
+ * tuyu于5/22/18祈祷...
+ * 获取Unsafe实例
+ * <p>参考链接：</p>
+ * <p>https://www.cnblogs.com/chenpi/p/5389254.html#_label2</p>
  * @author tuyu
- * @date 5/19/18
+ * @date 5/22/18
  * Stay Hungry, Stay Foolish.
  */
-public class NeedTestTest {
+public class MyUnSafe {
 
     /**
-     * 使用Java反射机制来访问自定义注解
+     * 利用Java的反射机制获取Unsafe类中的静态属性theUnsafe
+     * @return
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
      */
-    @Test
-    public void testCustomAnnotation() {
-        Class clazz = MyService.class;
-        Method[] methods = clazz.getDeclaredMethods();
-        if (methods.length == 0){
-            System.out.println("method " + clazz.getName() + " has no declared method");
-        }else {
-            for (Method method : methods){
-                NeedTest annotation = method.getAnnotation(NeedTest.class); // 所有自定义的注解都隐式继承自java.lang.annotation.Annotation接口，但是不允许显示继承其他接口
-                if (annotation == null){
-                    System.out.println("method" + method.getName() + " has not annotated @NeedTest");
-                }else {
-                    boolean value = annotation.value();
-                    System.out.println(method.getName() + " has annotated @NeedTest and value = " + value);
-                }
-            }
-        }
+    public static final Unsafe getUnsafe() throws NoSuchFieldException, IllegalAccessException {
+        Class clazz = Unsafe.class;
+        Field theUnsafe = clazz.getDeclaredField("theUnsafe");
+        theUnsafe.setAccessible(true);
+        Object o = theUnsafe.get(null); // 由于是静态属性，传入null
+        return (Unsafe) o;
     }
-
 }
