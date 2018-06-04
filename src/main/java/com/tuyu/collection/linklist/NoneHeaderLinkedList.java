@@ -59,12 +59,17 @@ public class NoneHeaderLinkedList<E> implements MyList<E> {
 
     private boolean linkLast(E e){
         Node<E> newNode = new Node<>(e);
-        if (tail == null) {
-            tail = newNode;
-        } else {
+//        if (tail == null) {
+//            tail = newNode;
+//        } else {
+//            tail.next = newNode;
+//            tail = newNode;
+//        }
+        if (tail != null){
             tail.next = newNode;
-            tail = newNode;
         }
+        tail = newNode;
+
         if (head == null){
             head = newNode;
         }
@@ -85,13 +90,23 @@ public class NoneHeaderLinkedList<E> implements MyList<E> {
             size ++;
             return true;
         }
-        return linkBefore(e, node(index - 1)); // 加到中间
+        return linkBefore(e, previous(index)); // 加到中间
     }
 
     private Node<E> node(int index) {
-//        checkElementIndex(index);
         Node<E> curr = head;
         for (int i = 0; i < index; i++){
+            curr = curr.next;
+        }
+        return curr;
+    }
+
+    private Node<E> previous(int index) {
+        Node<E> curr = head;
+        if (index == 0) {
+            throw new IndexOutOfBoundsException("no previous node of index " + index);
+        }
+        for (int i = 0; i < index - 1; i++) {
             curr = curr.next;
         }
         return curr;
@@ -172,6 +187,9 @@ public class NoneHeaderLinkedList<E> implements MyList<E> {
     }
 
     private boolean unlinkFirst() {
+        if (head == tail) {
+            tail = null;
+        }
         Node<E> nextNode = head.next;
         head.el = null; // help GC
         head = nextNode;
@@ -183,13 +201,14 @@ public class NoneHeaderLinkedList<E> implements MyList<E> {
     public boolean remove(int index) {
         checkElementIndex(index);
         if (size == 1) {
-            head.el = null; // help GC
-            head = null;
-            tail = null;
-            size --;
-            return true;
+//            head.el = null; // help GC
+//            head = null;
+//            tail = null;
+//            size --;
+//            return true;
+            return unlinkFirst();
         } else {
-            return unlink(node(index - 1)); // 把父节点传过去
+            return unlink(previous(index)); // 把父节点传过去
         }
     }
 

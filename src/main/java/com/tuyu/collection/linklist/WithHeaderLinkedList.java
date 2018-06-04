@@ -153,8 +153,7 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
         if (removeNode == tail) {
             tail = preNode;
         }
-        Node<E> afterNode = removeNode.next;
-        preNode.next = afterNode;
+        preNode.next = removeNode.next;
         removeNode.el = null; // help GC
         size --;
         return true;

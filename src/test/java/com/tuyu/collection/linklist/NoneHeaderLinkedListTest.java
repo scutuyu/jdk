@@ -70,6 +70,7 @@ public class NoneHeaderLinkedListTest {
      */
     @Test
     public void remove() {
+//        list.remove(0);
         list.add("hello");
         list.remove(0);
         list.add("world");
