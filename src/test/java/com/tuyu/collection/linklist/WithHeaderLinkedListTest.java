@@ -41,17 +41,32 @@ import static org.junit.Assert.*;
  * Stay Hungry, Stay Foolish.
  */
 public class WithHeaderLinkedListTest {
+
+    MyList<String> list = new WithHeaderLinkedList<>();
+
     @Test
     public void add() throws Exception {
 
-        List<String> list = new LinkedList<>();
+        list.display();
+        list.remove(null);
         list.add("hello");
+        list.display();
+        list.remove(0);
+        list.display();
+        list.add("String");
         list.add("world");
-        list.add("kkjk");
-        System.out.println(list);
-        list.get(3);
-        list.remove(2);
-        System.out.println(list);
+        list.add(0, "dd");
+        list.display();
+        list.remove(1);
+        list.display();
+    }
+
+    @Test
+    public void test() {
+        List<String> kk = new LinkedList<>();
+        kk.remove(0);
+        kk.remove(null);
+
     }
 
 }

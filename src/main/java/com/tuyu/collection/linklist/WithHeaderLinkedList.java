@@ -41,6 +41,9 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
         private E el;
         private Node<E> next;
 
+        public Node() {
+        }
+
         public Node(E el) {
             this.el = el;
         }
@@ -51,10 +54,12 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
         }
     }
 
-    private Node<E> head = new Node<E>(null); // 带头结点的头指针初始化
-    private Node<E> tail = head; // 带头结点的尾指针初始化
+    private Node<E> head, tail;
     private volatile int size;
 
+    public WithHeaderLinkedList() {
+        head = tail = new Node<>();
+    }
 
     @Override
     public boolean add(E e) {
@@ -75,7 +80,7 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
         if (index == size) {
             return linkLast(e);
         }else {
-            return linkBefore(e, node(index - 1));
+            return linkBefore(e, previous(index));
         }
     }
 
@@ -95,6 +100,15 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
 
     private Node<E> node(int index){
         checkElementIndex(index);
+        Node<E> curr = head.next;
+        for (int i = 0; i < index; i++) {
+            curr = curr.next;
+        }
+        return curr;
+    }
+
+    private Node<E> previous(int index) {
+        checkElementIndex(index);
         Node<E> curr = head;
         for (int i = 0; i < index; i++) {
             curr = curr.next;
@@ -104,7 +118,7 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
 
     private void checkElementIndex(int index){
         if (!isElementIndex(index)) {
-            throw new IndexOutOfBoundsException("index out of bounds");
+            throw new IndexOutOfBoundsException("index out of bounds, no element of position " + index + ", size " + size);
         }
     }
 
@@ -113,41 +127,42 @@ public class WithHeaderLinkedList<E> implements MyList<E> {
     }
 
     @Override
-    public boolean remove(Object e) {
-        Node<E> pre = null;
-        Node<E> x = head.next;
-        for (int i = 0; i < size; i++) {
-            if (e == null) {
+    public boolean remove(Object obj) {
+        Node<E> pre = head;
+
+        if (obj == null) {
+            for (Node<E> x = head.next; x != null; x = x.next) {
                 if (x.el == null) {
                     return unlink(pre);
                 }
-            } else {
-                if (e.equals(x.el)) {
+                pre = x;
+            }
+        } else {
+            for (Node<E> x = head.next; x != null; x = x.next) {
+                if (obj.equals(x.el)) {
                     return unlink(pre);
                 }
+                pre = x;
             }
-            pre = x;
-            x = x.next;
         }
         return false;
     }
 
-    private boolean unlink(Node<E> node){
-        if (size == 0){
-            throw new NoSuchElementException("the list is empty");
+    private boolean unlink(Node<E> preNode){
+        Node<E> removeNode = preNode.next;
+        if (removeNode == tail) {
+            tail = preNode;
         }
-        Node<E> curr = node.next;
-        node.next = curr.next;
-        // help GC
-        curr.el = null;
-        curr.next = null;
+        Node<E> afterNode = removeNode.next;
+        preNode.next = afterNode;
+        removeNode.el = null; // help GC
         size --;
         return true;
     }
 
     @Override
     public boolean remove(int index) {
-        return unlink(node(index - 1));
+        return unlink(previous(index));
     }
 
     @Override
