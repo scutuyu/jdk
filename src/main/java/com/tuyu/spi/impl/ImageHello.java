@@ -1,12 +1,6 @@
-package com.tuyu.resource;
+package com.tuyu.spi.impl;
 
-import com.tuyu.url.UrlTest;
-import org.junit.Test;
-
-import java.io.*;
-import java.util.Scanner;
-
-import static org.junit.Assert.*;
+import com.tuyu.spi.HelloInterface;
 
 /**
  * <pre>
@@ -34,52 +28,15 @@ import static org.junit.Assert.*;
  * ////////////////////////////////////////////////////////////////////
  * </pre>
  * <p>
- * tuyu于6/1/18祈祷...
+ * tuyu于6/29/18祈祷...
  *
  * @author tuyu
- * @date 6/1/18
+ * @date 6/29/18
  * Stay Hungry, Stay Foolish.
  */
-public class ResourceUtilTest {
-
-
-    /**
-     * 加载资源文件，并打印每一行
-     */
-    @Test
-    public void testGet() throws IOException {
-        InputStream inputStream = ResourceUtil.getResourceAsStream(ResourceUtilTest.class, "log4j.properties");
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-        String line = null;
-        while ((line = reader.readLine()) != null){
-            System.out.println(line);
-        }
-    }
-
-    /**
-     *
-     */
-    @Test
-    public void testPacket() {
-        InputStream resourceFromPackagePath = ResourceUtilTest.class.getResourceAsStream("prop.properties");
-        Scanner scanner = new Scanner(resourceFromPackagePath);
-        while (scanner.hasNextLine()) {
-            String s = scanner.nextLine();
-            System.out.println(s);
-        }
-    }
-
-    public static void main(String[] args) {
-        new ResourceUtilTest().print();
-    }
-
-    public void print(){
-        InputStream resourceFromPackagePath = this.getClass().getResourceAsStream("prop.properties");
-        Scanner scanner = new Scanner(resourceFromPackagePath);
-        while (scanner.hasNextLine()) {
-            String s = scanner.nextLine();
-            System.out.println(s);
-        }
+public class ImageHello implements HelloInterface {
+    @Override
+    public void sayHello() {
+        System.out.println("Image Hello");
     }
 }

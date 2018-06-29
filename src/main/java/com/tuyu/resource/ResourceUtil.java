@@ -37,13 +37,24 @@ import java.io.InputStream;
 public class ResourceUtil {
 
     /**
-     * 获取资源文件流
+     * 从项目根目录加载资源文件
      * @param clazz 类对象
      * @param name 文件名
-     * @return
+     * @return 返回inputStream输入流
      */
     public static final InputStream getResourceAsStream(Class clazz, String name){
         InputStream inputStream = clazz.getClassLoader().getResourceAsStream(name);
+        return inputStream;
+    }
+
+    /**
+     * 从包路径下加载资源文件
+     * @param clazz 类对象
+     * @param name 文件名
+     * @return 返回inputStream输入流
+     */
+    public static final InputStream getResourceFromPackagePath(Class clazz, String name) {
+        InputStream inputStream = clazz.getResourceAsStream(name);
         return inputStream;
     }
 }
