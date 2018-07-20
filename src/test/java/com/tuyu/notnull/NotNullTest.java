@@ -1,6 +1,8 @@
-package lombok;
+package com.tuyu.notnull;
 
-import java.util.Date;
+import org.junit.Test;
+
+import java.math.BigDecimal;
 
 /**
  * <pre>
@@ -28,16 +30,26 @@ import java.util.Date;
  * ////////////////////////////////////////////////////////////////////
  * </pre>
  * <p>
- * tuyu于7/4/18祈祷...
- *
+ * tuyu于7/5/18祈祷...
+ * 在使用构造函数或调用函数时，如果需要传递的参数不能为null，让IDE提示不能传null
  * @author tuyu
- * @date 7/4/18
+ * @date 7/5/18
  * Stay Hungry, Stay Foolish.
  */
-@Data
-public class Cup {
-    private String name;
-    private int age;
-    private String color;
-    private Date createTime;
+public class NotNullTest {
+
+    @Test
+    public void testNotNull() {
+        Phone phone = new Phone(null, 1);
+
+    }
+
+    @Test
+    public void testNull() {
+        BigDecimal price = null;
+        // 下面的方式不会抛异常
+        System.out.println(String.valueOf(price));
+        // 下面的方式将会跑NPE异常
+        System.out.println(price.toString());
+    }
 }

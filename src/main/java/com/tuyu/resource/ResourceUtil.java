@@ -1,6 +1,9 @@
 package com.tuyu.resource;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * <pre>
@@ -36,6 +39,19 @@ import java.io.InputStream;
  */
 public class ResourceUtil {
 
+    private ResourceUtil() {
+        throw new AssertionError("ResourceUtil class can not be initialized");
+    }
+
+    /**
+     * 从项目根目录加载资源文件
+     * @param name 文件名
+     * @return 返回inputStream输入流
+     */
+    public static final InputStream getResourceAsStream(String name){
+        return getResourceAsStream(ResourceUtil.class, name);
+    }
+
     /**
      * 从项目根目录加载资源文件
      * @param clazz 类对象
@@ -49,6 +65,15 @@ public class ResourceUtil {
 
     /**
      * 从包路径下加载资源文件
+     * @param name 文件名
+     * @return 返回inputStream输入流
+     */
+    public static final InputStream getResourceFromPackagePath(String name) {
+        return getResourceFromPackagePath(ResourceUtil.class, name);
+    }
+
+    /**
+     * 从包路径下加载资源文件
      * @param clazz 类对象
      * @param name 文件名
      * @return 返回inputStream输入流
@@ -57,4 +82,26 @@ public class ResourceUtil {
         InputStream inputStream = clazz.getResourceAsStream(name);
         return inputStream;
     }
+
+    /**
+     * 加载配置文件
+     * @param path
+     * @return
+     */
+    public static final Properties getProperties(String path) {
+        InputStream inputStream = null;
+        if (path.startsWith(File.separator)) {
+            inputStream = getResourceFromPackagePath(ResourceUtil.class, path);
+        }else {
+            inputStream = getResourceAsStream(ResourceUtil.class, path);
+        }
+        Properties properties = new Properties();
+        try {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
 }

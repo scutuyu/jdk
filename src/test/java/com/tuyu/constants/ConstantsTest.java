@@ -1,8 +1,6 @@
-package com.tuyu.lombok;
+package com.tuyu.constants;
 
 import org.junit.Test;
-
-import java.util.Date;
 
 /**
  * <pre>
@@ -30,26 +28,36 @@ import java.util.Date;
  * ////////////////////////////////////////////////////////////////////
  * </pre>
  * <p>
- * tuyu于7/4/18祈祷...
- * Lombok插件测试
+ * tuyu于7/6/18祈祷...
+ * 测试移位运算定义常量，以达到复合常量的目的
  * @author tuyu
- * @date 7/4/18
+ * @date 7/6/18
  * Stay Hungry, Stay Foolish.
  */
-public class LombokTest {
+public class ConstantsTest {
 
-
-    /**
-     * Cup实体类，定义了实例域，但是没有定义getter,setter方法，只是在类上使用了@Data注解，就可以自动生成getter，setter，toString等方法
-     */
     @Test
-    public void testLombok() {
-        Cup cup = new Cup();
-        cup.setName("tuyu");
-        cup.setAge(12);
-        cup.setColor("blank");
-        cup.setCreateTime(new Date());
+    public void testConstants() {
+        int value = Constants.HAVE_VERIFY | Constants.HAVE_ACCEPTED;
+        boolean verify = (value & Constants.HAVE_VERIFY) > 0;
+        boolean accept = (value & Constants.HAVE_ACCEPTED) > 0;
+        boolean close = (value & Constants.HAVE_CLOSED) > 0;
+        System.out.println("value的是等于" + value + " 是否核实？ " + verify + " 是否受理？ " + accept + " 是否结案？ " + close);
+        value = value & ~Constants.HAVE_ACCEPTED;
+        System.out.println("value 取消已受理状态后的值为 " + value);
+    }
 
-        System.out.println(cup);
+    @Test
+    public void test() {
+        System.out.println(-1 << 29);
+        System.out.println(0 << 29);
+        System.out.println(1 << 29);
+        System.out.println(2 << 29);
+        System.out.println(3 << 29);
+        System.out.println(4 << 29);
+    }
+
+    @Test
+    public void testkk() {
     }
 }

@@ -33,6 +33,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.41</version>
+    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
@@ -53,6 +59,17 @@
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
+          <!--<configuration>-->
+            <!--<outputDirectory>${basedir}/target/classes</outputDirectory>-->
+            <!--<resources>-->
+              <!--<resource>-->
+                <!--<directory>${basedir}/src/main/java</directory>-->
+                <!--<includes>-->
+                  <!--<include>**/*.properties</include>-->
+                <!--</includes>-->
+              <!--</resource>-->
+            <!--</resources>-->
+          <!--</configuration>-->
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
