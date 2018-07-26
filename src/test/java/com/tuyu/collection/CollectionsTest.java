@@ -2,9 +2,7 @@ package com.tuyu.collection;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * <pre>
@@ -51,5 +49,25 @@ public class CollectionsTest {
 //        list.sort(null);
         Collections.sort(list);
         System.out.println(list);
+    }
+
+
+    /**
+     *  对于ArrayList的toArray来说，是调用Arrays.arraycopy完成的，
+     *  如果有传入了数组，如果数组能容纳所有的元素，就使用传入的元素来保存，
+     *  否则就返回一个新的数组
+     */
+    @Test
+    public void testToArray() {
+        Collection collection = new ArrayList();
+        collection.add("hello");
+        collection.add("world");
+        Object[] objects = collection.toArray();
+        System.out.println("toArray()： " + Arrays.toString(objects));
+//        Object[] arr = new Object[]{"obj1", "obj2", "obj3"};
+        Object[] arr = new Object[]{"obj1"};
+        Object[] objects1 = collection.toArray(arr);
+        System.out.println("toArray(arr): " + Arrays.toString(objects1));
+        System.out.println("arr: " + Arrays.toString(arr));
     }
 }
