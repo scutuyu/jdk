@@ -37,7 +37,7 @@ import java.util.concurrent.CountDownLatch;
  * @date 5/14/18
  * Stay Hungry, Stay Foolish.
  */
-public class Producer implements Runnable{
+class Producer implements Runnable{
 
     private MyBlockingQueue<String> queue;
     private static final Logger logger = LoggerFactory.getLogger(Producer.class);
