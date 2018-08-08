@@ -13,4 +13,17 @@ public class EnumsTest {
     public void testEnums() {
         System.out.println(FruitEnum.APPLE);
     }
+
+    @Test
+    public void testValueOf() {
+//        FruitEnum hello = FruitEnum.valueOf("hello");
+//        System.out.println(hello);
+
+        System.out.println(FruitEnum.APPLE.name());
+
+        FruitEnum[] values = FruitEnum.values();
+        for (FruitEnum f : values) {
+            System.out.println(f);
+        }
+    }
 }

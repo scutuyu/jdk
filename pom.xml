@@ -77,6 +77,11 @@
           <configuration>
             <target>1.8</target>
             <source>1.8</source>
+            <!--为了解决package com.sun.istack.internal does not exist编译报错-->
+            <compilerArguments>
+              <bootclasspath>${JAVA_HOME}/jre/lib/rt.jar</bootclasspath>
+            </compilerArguments>
+            <!--为了解决package com.sun.istack.internal does not exist编译报错-->
           </configuration>
         </plugin>
         <plugin>

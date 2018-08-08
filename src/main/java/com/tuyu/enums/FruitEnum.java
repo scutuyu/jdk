@@ -8,5 +8,4 @@ package com.tuyu.enums;
 public enum FruitEnum {
     APPLE
 
-
 }

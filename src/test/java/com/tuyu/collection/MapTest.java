@@ -59,4 +59,17 @@ public class MapTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 当List.isEmpty返回false，值也可能是null
+     */
+    @Test
+    public void testNull() {
+
+        List<String> list = new ArrayList<>();
+        System.out.println(list.isEmpty() ? "nothing: " : "not empty: " + list);
+        list.add(null);
+        System.out.println(list.isEmpty() ? "nothing: " : "not empty: " + list);
+
+    }
 }

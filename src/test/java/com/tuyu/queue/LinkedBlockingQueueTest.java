@@ -34,7 +34,7 @@ public class LinkedBlockingQueueTest {
         Thread enumThread = new Thread(new EnumThread(queue, path));
         enumThread.start();
         // 10个线程从queue中取出文件，扫描文件是否包含keyword
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
             new Thread(new SearchThread(queue, keyword)).start();
         }
     }
