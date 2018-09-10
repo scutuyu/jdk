@@ -26,4 +26,10 @@ public class EnumsTest {
             System.out.println(f);
         }
     }
+
+    @Test
+    public void testArea() {
+//        AreaEnum ae = AreaEnum.CQ;
+//        System.out.println(ae.name);
+    }
 }

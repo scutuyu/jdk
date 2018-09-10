@@ -60,7 +60,7 @@ public class Cache {
     private static ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private static Lock readLock = readWriteLock.readLock();
     private static Lock writeLock = readWriteLock.writeLock();
-    private static SimpleDateFormat simpleDateFormat;
+    static SimpleDateFormat simpleDateFormat;
 
     static {
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
@@ -96,27 +96,5 @@ public class Cache {
             writeLock.unlock();
         }
         return o;
-    }
-
-
-    public static void main(String[] args) {
-        int tNum = 10;
-        Cache cache = new Cache();
-        // 先往缓存中写入一条数据
-        final String key = "hello";
-        cache.put(key, "world");
-        // tNum个线程同时访问cache,读完cache后，同时往cache中写数据
-        for (int i = 0; i < tNum; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // 读数据
-                    Object o = cache.get(key);
-                    System.out.println(String.format("[%s] Thread [%s] get Data [%s] from cache", simpleDateFormat.format(new Date()), Thread.currentThread().getName(), o));
-                    // 写数据
-                    cache.put(key, "new name" + Thread.currentThread().getName());
-                }
-            }, "myThread" + i).start();
-        }
     }
 }
