@@ -1,5 +1,6 @@
 package com.tuyu.collection;
 
+import lombok.Data;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,11 @@ public class ArrayListTest {
         ArrayList<Node> list = new ArrayList<>(2);
         list.add(new Node("tuyu"));
         list.add(new Node("ty"));
-
+        logger.info("before: {}", list);
         ArrayList<Node> list2 = (ArrayList<Node>) list.clone();
-        logger.info("lit == list2 ? {}", list == list2);
-        for (int i = 0; i < list.size(); i++) {
-            logger.info("list.get({}) == list2.get({}) ? {}", i, i, list.get(i) == list2.get(i));
-        }
+        logger.info("after: {}", list2);
+        list.get(0).setName("kjkjkj");
+        logger.info("modify: {}", list2);
     }
 
     @Test
@@ -44,7 +44,8 @@ public class ArrayListTest {
         logger.info("linkList.equals(arrList) ? {}", linkList.equals(arrList));
     }
 
-    static class Node{
+    @Data
+    static class Node implements Cloneable{
         private String name;
 
         public Node(String name) {

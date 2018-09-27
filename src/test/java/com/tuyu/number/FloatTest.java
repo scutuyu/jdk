@@ -4,6 +4,7 @@ import org.junit.Test;
 
 /**
  * 测试浮点型
+ * <p>参考链接：https://akaedu.github.io/book/ch14s04.html</p>
  *
  * @author tuyu
  * @date 9/18/18

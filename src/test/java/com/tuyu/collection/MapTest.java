@@ -1,5 +1,6 @@
 package com.tuyu.collection;
 
+import lombok.Data;
 import org.junit.Test;
 import org.omg.CORBA.MARSHAL;
 
@@ -70,6 +71,44 @@ public class MapTest {
         System.out.println(list.isEmpty() ? "nothing: " : "not empty: " + list);
         list.add(null);
         System.out.println(list.isEmpty() ? "nothing: " : "not empty: " + list);
+
+    }
+
+    @Test
+    public void testClone() {
+        HashMap<String, Node> map = new HashMap<String, Node>(2);
+        map.put("hello", new Node("tuyu", 12));
+        map.put("world", new Node("ty", 23));
+        System.out.println("before: " + map);
+        HashMap<String, Node> clone = (HashMap<String, Node>) map.clone();
+        System.out.println("after: " + clone);
+        map.get("hello").setAge(122);
+        System.out.println("modify: " + clone);
+    }
+
+    @Test
+    public void test() throws CloneNotSupportedException {
+        Node tuyu = new Node("tuyu", 12);
+        System.out.println(tuyu);
+        Object clone = tuyu.clone();
+        tuyu.setAge(122);
+        System.out.println(clone);
+    }
+
+    @Data
+    private static class Node implements Cloneable{
+        private String name;
+        private int age;
+
+        public Node(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
 
     }
 }

@@ -82,6 +82,12 @@ public class SerialTest {
         System.out.println(d);
     }
 
+    @Test
+    public void testHex() {
+        int i = 8680;
+        System.out.printf("%#x", i);
+    }
+
 
 
 }
