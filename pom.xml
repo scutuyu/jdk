@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <!--<maven.compiler.source>1.7</maven.compiler.source>-->
+    <!--<maven.compiler.target>1.7</maven.compiler.target>-->
   </properties>
 
   <dependencies>
@@ -80,8 +80,12 @@
             <!--为了解决package com.sun.istack.internal does not exist编译报错-->
             <compilerArguments>
               <bootclasspath>${JAVA_HOME}/jre/lib/rt.jar</bootclasspath>
+              <!--java8新特性，字节码和语言层面保存参数名字-->
+              <compilerArgument>-parameters</compilerArgument>
             </compilerArguments>
             <!--为了解决package com.sun.istack.internal does not exist编译报错-->
+            <target>1.8</target>
+            <source>1.8</source>
           </configuration>
         </plugin>
         <plugin>

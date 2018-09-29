@@ -10,7 +10,7 @@ import java.util.List;
  * @date 9/27/18
  * Talk is cheap, show me the code.
  */
-public class Java8Test {
+public class LambdaTest {
 
     @Test
     public void testLambda() {
