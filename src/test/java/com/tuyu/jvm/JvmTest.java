@@ -1,8 +1,10 @@
 package com.tuyu.jvm;
 
+import java.util.ResourceBundle;
+
 /**
  * JVM参数测试
- *
+ * 参考链接：https://cloud.tencent.com/developer/article/1082730
  * @author tuyu
  * @date 9/29/18
  * Talk is cheap, show me the code.
@@ -75,7 +77,8 @@ public class JvmTest {
          * -XX:+PrintGCDetails：打印GC日志
          * -XX:+UseParallelGC：新生代使用Parallel Scavenge收集器，老年代使用Serial Old收集器
          * <pre>
-         *     Server模式下，测试老年代的分配担保机制，但是分配对象的内存大于等于Eden区内存的一半，将直接在老年代分配
+         *     Server模式下使用Parallel Scavenge + Serial Old收集器组合，测试老年代的分配担保机制，
+         *     触发minorGC之后任然没有足够的内存，当分配对象的内存大于等于Eden区内存的一半，将直接在老年代分配
          *     1. Eden区先分配3个2M的数组
          *     2. 当再分配一个4M的数组时，4M等于Eden区内存的一半，将新生对象直接分配到老年代，不会触发minorGC,
          *     通过日志可以看到，并没有触发minorGc,在程序结束时打印了堆内存使用
@@ -116,7 +119,8 @@ public class JvmTest {
          * -XX:+PrintGCDetails：打印GC日志
          * -XX:+UseParallelGC：新生代使用Parallel Scavenge收集器，老年代使用Serial Old收集器
          * <pre>
-         *     Server模式下，测试老年代的分配担保机制
+         *     Server模式下使用Parallel Scavenge + Serial Old收集器组合，测试老年代的分配担保机制
+         *     触发minorGC之后任然没有足够的内存，当分配对象的内存小于Eden区内存的一半，弃用分配担保机制，将新生代的对象转移到老年代
          *     1. Eden区先分配3个2M的数组
          *     2. 当再分配一个3M的数组时，3M小于Eden区内存的一半，不会将新生对象直接分配到老年代
          *     3. 触发minorGC，但是没有对象被回收，因为jdk8默认开启分配担保机制，将把新生代所有存活的对象转移到老年代
@@ -147,5 +151,37 @@ public class JvmTest {
         }
 
 
+    }
+
+    static class Hello4{
+        /**
+         * vm参数:
+         * -server：server模式运行
+         * -Xms20m：堆内存固定为20m
+         * -Xmx20m
+         * -Xmn10m：新生代分配10m内存
+         * -XX:SurvivorRatio=8：Eden区分配8m，Survivor区分配1m
+         * -XX:+PrintGCDetails：打印GC日志
+         * -XX:+UseParallelGC：新生代使用Parallel Scavenge收集器，老年代使用Serial Old收集器
+         * @param args
+         */
+        public static void main(String[] args) {
+            allocate();
+        }
+
+        private static void allocate() {
+            byte[] b2 = new byte[4 * _1M];
+//            byte[] b3 = new byte[2 * _1M];
+//            byte[] b4 = new byte[2 * _1M];
+//            byte[] b1 = new byte[9 * _1M];
+        }
+    }
+    private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
+    private static ResourceBundle lStrings =
+            ResourceBundle.getBundle(LSTRING_FILE);
+
+    public static void main(String[] args) {
+        System.out.println(lStrings);
+        System.out.println();
     }
 }

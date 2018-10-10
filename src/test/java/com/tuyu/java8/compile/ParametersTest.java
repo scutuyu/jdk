@@ -52,4 +52,11 @@ public class ParametersTest {
                 .map(Parameter::getName)
                 .forEach(System.out::println);
     }
+
+    @Test
+    public void testIdentityHashCode() {
+        Object object = new Object();
+        System.out.println(object.hashCode());
+        System.out.println(System.identityHashCode(object));
+    }
 }

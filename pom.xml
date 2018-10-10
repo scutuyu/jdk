@@ -75,13 +75,13 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
           <configuration>
+            <!--java8新特性，字节码和语言层面保存参数名字-->
+            <compilerArgument>-parameters</compilerArgument>
             <target>1.8</target>
             <source>1.8</source>
             <!--为了解决package com.sun.istack.internal does not exist编译报错-->
             <compilerArguments>
               <bootclasspath>${JAVA_HOME}/jre/lib/rt.jar</bootclasspath>
-              <!--java8新特性，字节码和语言层面保存参数名字-->
-              <compilerArgument>-parameters</compilerArgument>
             </compilerArguments>
             <!--为了解决package com.sun.istack.internal does not exist编译报错-->
             <target>1.8</target>

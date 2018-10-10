@@ -35,4 +35,9 @@ public class Base64Test {
         return new String(Base64.getDecoder()
                 .decode(text), CHARSET);
     }
+
+    @Test
+    public void testOs() {
+        System.out.println(System.getenv("os.name"));
+    }
 }

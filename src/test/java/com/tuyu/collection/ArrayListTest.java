@@ -44,6 +44,26 @@ public class ArrayListTest {
         logger.info("linkList.equals(arrList) ? {}", linkList.equals(arrList));
     }
 
+    @Test
+    public void testConstructor() {
+        List<Node> list = new ArrayList<>(3);
+        list.add(new Node("tuyu"));
+        list.add(new Node("ty"));
+        list.add(new Node("tutu"));
+        List<Node> list1 = new ArrayList<>(list);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i) == list1.get(i));
+        }
+    }
+
+    @Test
+    public void testChar() {
+        System.out.println('A' + 1);
+        System.out.println((int)'A');
+        System.out.println('a' + 1);
+        System.out.println((int)'a');
+    }
+
     @Data
     static class Node implements Cloneable{
         private String name;
