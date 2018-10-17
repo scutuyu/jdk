@@ -11,6 +11,14 @@ public abstract class AbstractHello {
         System.out.println("hello world");
     }
 
+    protected final void resolveClass() {
+        System.out.println("resolve");
+    }
+
+    void myResolveClass() {
+
+    }
+
     public void hi() {
         hello();
     }
@@ -23,6 +31,10 @@ class Hello extends AbstractHello {
     public String getName() {
         return name;
     }
+
+//    protected final void resolveClass() {
+//
+//    }
 
     public void setName(String name) {
         this.name = name;

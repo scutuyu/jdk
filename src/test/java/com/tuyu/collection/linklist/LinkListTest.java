@@ -1,11 +1,10 @@
 package com.tuyu.collection.linklist;
 
+import lombok.Data;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * <pre>
@@ -105,4 +104,49 @@ public class LinkListTest {
         list.remove(2);
         System.out.println(list);
     }
+
+    /** 测试尾插入法 */
+    @Test
+    public void testHeadInsertMethod() {
+        Node node = getNode();
+        printNode(node);
+        Node nn = null;
+        Node p = node;
+        while (p != null) {
+            if (nn != null) {
+                nn.next = p;
+            } else {
+                nn = p;
+            }
+            p = p.next;
+        }
+        printNode(nn);
+        printNode(node);
+    }
+
+    private void printNode(Node node) {
+        Node p = node;
+        while (p != null) {
+            System.out.print(p.num + " -> ");
+            p = p.next;
+        }
+        System.out.println("null");
+    }
+
+    private Node getNode() {
+        Node node = new Node(1);
+        node.next = new Node(2);
+        node.next.next = new Node(3);
+        return node;
+    }
+
+    class Node{
+        private int num;
+        private Node next;
+
+        public Node(int num) {
+            this.num = num;
+        }
+    }
 }
+
