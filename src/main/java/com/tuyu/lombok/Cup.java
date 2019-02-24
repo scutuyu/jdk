@@ -1,6 +1,7 @@
 package com.tuyu.lombok;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -37,9 +38,14 @@ import java.util.Date;
  * Stay Hungry, Stay Foolish.
  */
 @Data
+@NoArgsConstructor
 public class Cup {
     private String name;
     private int age;
     private String color;
     private Date createTime;
+
+    public static void main(String[] args) {
+
+    }
 }

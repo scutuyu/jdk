@@ -43,4 +43,22 @@ public class MyUnSafeTest {
         System.out.println(MyUnSafe.getUnsafe());
     }
 
+    /**
+     * 测试break关键字，当有多重循环时，break是跳出内层循环，还是跳出所有循环
+     * 结果显示，只能跳出当前循环，不能跳出外层循环
+     */
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            System.out.println("outer");
+            while (true) {
+                System.out.println("middle");
+                while (true) {
+                    System.out.println("inner");
+                    break;
+                }
+                Thread.currentThread().sleep(1000L);
+            }
+        }
+    }
+
 }

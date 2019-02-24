@@ -33,12 +33,13 @@ public class SerialTest {
         String fileName = "src/test/resources/serial_teacher";
 
         Teacher teacher = new Teacher("tuyu", 12);
+        teacher.setSex("男");
 
         // 序列化
-//        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName));
-//        oos.writeObject(teacher);
-//        oos.flush();
-//        oos.close();
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName));
+        oos.writeObject(teacher);
+        oos.flush();
+        oos.close();
 
 //        // 反序列化
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));

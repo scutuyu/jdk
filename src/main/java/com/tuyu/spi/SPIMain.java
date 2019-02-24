@@ -1,5 +1,8 @@
 package com.tuyu.spi;
 
+import lombok.Data;
+
+import java.util.Arrays;
 import java.util.ServiceLoader;
 
 /**
@@ -42,7 +45,11 @@ public class SPIMain {
             helloInterface.sayHello();
         }
 
-        // 下面的代码不能运行，内部类可以访问外部类的成员变量，而静态方法不能直接访问类的成员变量，产生矛盾，所以静态方法中不能实例化静态类
+        String[] arr = "hell hhh".split("[,\\s]+");
+        System.out.println(Arrays.toString(arr));
+
+        // 下面的代码不能运行，内部类可以访问外部类的成员变量，而静态方法不能直接访问类的成员变量，产生矛盾，
+        // 所以静态方法中不能实例化静态类
 //        Inner inner = new Inner();
     }
 
@@ -53,6 +60,7 @@ public class SPIMain {
     }
 
     // 私有内部类
+    @Data
     private class Inner {
         private int age;
         private String name;
@@ -61,13 +69,6 @@ public class SPIMain {
             this.name = name;
         }
 
-        @Override
-        public String toString() {
-            return "Inner{" +
-                    "age=" + age +
-                    ", name='" + name + '\'' +
-                    '}';
-        }
     }
 
 }

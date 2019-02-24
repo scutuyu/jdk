@@ -1,5 +1,8 @@
 package com.tuyu.jvm;
 
+import com.alibaba.fastjson.PropertyNamingStrategy;
+import org.junit.Test;
+
 import java.util.ResourceBundle;
 
 /**
@@ -176,12 +179,18 @@ public class JvmTest {
 //            byte[] b1 = new byte[9 * _1M];
         }
     }
-    private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
-    private static ResourceBundle lStrings =
-            ResourceBundle.getBundle(LSTRING_FILE);
+//    private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
+//    private static ResourceBundle lStrings =
+//            ResourceBundle.getBundle(LSTRING_FILE);
+//
+//    public static void main(String[] args) {
+//        System.out.println(lStrings);
+//        System.out.println();
+//    }
 
-    public static void main(String[] args) {
-        System.out.println(lStrings);
-        System.out.println();
+    @Test
+    public void testJson() {
+        String camelCase = PropertyNamingStrategy.CamelCase.translate("user_name");
+        System.out.println(camelCase);
     }
 }

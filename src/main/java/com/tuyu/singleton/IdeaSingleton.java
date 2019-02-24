@@ -2,6 +2,9 @@ package com.tuyu.singleton;
 
 /**
  * 通过idea创建类时的选项生成的单例模式
+ * <p>
+ *     此方法为饿汉模式
+ * </p>
  * @author tuyu
  * @date 9/16/18
  * Talk is cheap, show me the code.
